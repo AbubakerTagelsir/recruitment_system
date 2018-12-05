@@ -6,7 +6,7 @@
       <field name="type">ir.actions.act_window</field>
       <field name="name">Seek Job</field>
       <field name="res_model">seek.job</field>
-      <field name="view_mode">kanban,form</field>
+      <field name="view_mode">tree,form</field>
       <field name="view_type">form</field>
       <field name="target">current</field>
       <field name="domain"></field>
@@ -26,11 +26,9 @@
 
   <!-- <menuitem id="jobs_menu" name="Jobs"  sequence="30" parent="menu_job_seek_root" action="action_seek_act_window"/> -->
 
-
-
       <!-- the kanban view for job seek -->
-<record model="ir.ui.view" id="resource_kanban_view">
-    <field name="name">view.seek.job.</field>
+ <record model="ir.ui.view" id="resource_kanban_view">
+    <field name="name">view.seek.job</field>
     <field name="model">seek.job</field>
     <field name="type">kanban</field>
     <field name="mode">primary</field>
@@ -38,70 +36,105 @@
     <field name="arch" type="xml">
     
         <kanban create="1" delete="1" edit="1">>
-            <field name="id"/>
-                <field name="job_pic"/>
+            <!-- <field name="id"/> -->
+                <field name="company_pic"/>
                 <field name="job_name"/>
-                <field name="iob_role"/>
+                <field name="job_posted_date"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_image">
-                                <img t-att-src="kanban_image('seek.job', 'job_pic', record.id.raw_value)"/>
+                                <img t-att-src="kanban_image('seek.job', 'company_pic', record.id.raw_value)"/>
                             </div>
                             <div class="oe_kanban_details">
                                 <strong class="o_kanban_record_title">
-                                    <field name="company_id" />
+                                   <field name="job_name" />
                                 </strong>
                             </div>
                         </div>
                     </t>
                 </templates>
-
         </kanban>
     </field>
-</record>  
+</record> 
 
+
+    <!-- list view for job -->
+    <record model="ir.ui.view" id="job_seek_list">
+      <field name="name">Job Seek lists</field>
+      <field name="model">seek.job</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="job_name" string="Job name"/>
+          <field name="job_posted_date" string="Job Posted Date"/>
+        </tree>
+      </field>
+    </record>
+
+
+ 
     <!-- Form view for job -->
-  <record id="view_seak_job_form" model="ir.ui.view">
+   <record id="view_seak_job_form" model="ir.ui.view">
       <field name="name">view.seek.job.form</field>
       <field name="model">seek.job</field>
+       <!-- <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job" /> -->
        <field name="type">form</field>
        <field name="mode">primary</field>
       <field name="active" eval="True" />
       <field name="arch" type="xml">
-      <header>
-              <field name="job_name"/>
-              </header>
-        <form>
-           
-          <field name="job_pic" />
-          <field name="company_id" />
-          <field name="job_experience_years"    />
-          <field name="job_career_level"  />
-          <field name="job_closes_date"  />
-          <field name="Job_vacancies"  />
-          <field name="job_location"  />
-          <field name="job_requierd_education_level"  />
-          <field name="iob_related_industry"  />
-          <field name="job_requierd_spicality"  />
-          <field name="job_description"  />
-          <field name="iob_role"  />
-          <field name="job_status"  />
-          <field name="job_type"  />
-          <field name="job_salary"  />
-         
-        </form>
-          <!-- </field> -->
+        <!-- <button string="Create Employee" name="create_employee_from_applicant" type="object" class="oe_highlight"/> -->
+                      <button name="%(action_company_applications_act_window)d"
+                      string="Apply"
+                      type="action"
+                      default_focus="0"
+                      class="oe_highlight"            
+                      help="Click here to apply for this job"
+                      /> 
+
+      <form>
+          <sheet>
+            <group colspan='2' col='2'>
+         <!-- <header> -->
+         <div class="oe_title">
+             <label for="job_name" class="oe_edit_only"/>
+              <h1><field name="job_name"/></h1>
+               <h2 class="o_row">
+                        <div>
+                        <label for="company_pic" class="oe_edit_only"/>
+                            <field name="company_pic"/>
+                        </div>
+                        <div>
+                            <label for="job_posted_date" class="oe_edit_only"/>
+                            <field name="job_posted_date" />
+                        </div>
+                    </h2>
+                </div>
+         <!-- </header> -->
+                <field name="job_experience_years"    />
+                <field name="job_career_level"  />
+                <field name="job_closes_date"  />
+                <field name="Job_vacancies"  />
+                <field name="job_location"  />
+                <field name="job_requierd_education_level"  />
+                <field name="job_requierd_spicality"  />
+                <field name="job_description" />
+                <field name="job_status"  />
+                <field name="job_type"  />
+                <field name="job_salary"  />
+          </group>
+          </sheet>
+          </form>
+        
           
       </field>
-  </record>
+  </record> 
 
 
 
 <!-- seeker Account views-->
 
     <!-- Main window action for seeker -->
-  <record model="ir.actions.act_window" id="action_account_act_window" >
+  <record model="ir.actions.act_window" id="action_account_act_window" > 
       <field name="type">ir.actions.act_window</field>
       <field name="name">Seeker Account</field>
       <field name="res_model">seek.seeker</field>
@@ -118,43 +151,123 @@
       </field>
   </record>
  
-<!-- menu item for seeker Account -->
+        <!-- menu item for seeker Account  -->
 
     <menuitem name="My Account" sequence="30" id="my_account_menu" parent="menu_job_seek_root" action="action_account_act_window"/>
+ 
 
-
-    <!-- Form view for job -->
-  <record id="view_seaker_account_form" model="ir.ui.view">
+    <!-- Form view for seeker -->
+   <record id="view_seaker_account_form" model="ir.ui.view">
       <field name="name">view.seeker.account.form</field>
       <field name="model">seek.seeker</field>
        <field name="type">form</field>
         <field name="inherit_id" ref="base.view_partner_form" />
-      <field name="arch" type="xml">
-       <!-- <field name="vat" 
-          position="replace">
-           <field name="category" 
-          position="replace"> -->
+      <field name="arch" type="xml"> 
+         <field name="vat" position="replace">
+            <field name="seeker_date_of_birth" />
+             </field>
+        <field name="category_id" position="replace"> 
+             <field name="seeker_gender"  />
+              </field>
+        <field name="function" position="replace"> 
+            <field name="seeker_nationalty"  />
+            </field>        
+         
     <form>
-
-          <!-- <field name="job_name" string="Job Name" /> -->
-          <field name="seeker_date_of_birth" />
-          <field name="company_id" />
-          <field name="seeker_gender"    />
-          <field name="seeker_nationalty"  />
-          <field name="seeker_residence_country"  />
-          <field name="seeker_city"  />
           <field name="seeker_years_of_experince"  />
           <field name="seeker_specialization"  />
           <field name="seeker_job_type"  />
           <field name="seeker_job_status"  />
-          <field name="seeker_iob_role"  />
+          <field name="seeker_education_level"  />
           <field name="seeker_job_salary"  />
-    </form>
-          <!-- </field> -->
+    </form> 
           
-    </field>
+          
+     </field>
+  </record> 
+
+
+<!-- company Account views-->
+
+    <!-- Main window action for company -->
+  <record model="ir.actions.act_window" id="action_company_account_act_window" > 
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Company Account</field>
+      <field name="res_model">seek.company</field>
+      <field name="view_mode">form</field>
+      <field name="view_type">form</field>
+      <field name="target">current</field>
+      <field name="domain"></field>
+      <field name="context"></field>
+      <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+              Click to add Your Account Information
+          </p><p>
+          </p>
+      </field>
   </record>
+ 
+        <!-- menu item for company Account  -->
+
+    <menuitem name="My Company" sequence="30" id="company_account_menu" parent="menu_job_seek_root" action="action_company_account_act_window"/>
+ 
+
+    <!-- Form view for company -->
+   <record id="view_company_account_form" model="ir.ui.view">
+      <field name="name">view.company.account.form</field>
+      <field name="model">seek.company</field>
+       <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+      <field name="arch" type="xml"> 
+
+         <field name="partner_id" position="replace">
+             </field>
+        <field name="vat" position="replace"> 
+              </field>     
+     </field>
+  </record> 
+
+
+<!-- company applications views-->
+
+    <!-- Main window action for company -->
+  <record model="ir.actions.act_window" id="action_company_applications_act_window" > 
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Company Applications</field>
+      <field name="res_model">seek.application</field>
+      <field name="view_mode">tree</field>
+      <field name="view_type">form</field>
+      <field name="target">current</field>
+      <field name="domain"></field>
+      <field name="context"></field>
+      <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+              Click to add Your Account Information
+          </p><p>
+          </p>
+      </field>
+  </record>
+ 
+        <!-- menu item for company Account  -->
+
+    <menuitem name="My applications" sequence="30" id="company_applications_menu" parent="menu_job_seek_root" action="action_company_applications_act_window"/>
+ 
+   <!-- list view for Appliction -->
+    <record model="ir.ui.view" id="job_seek_list">
+      <field name="name">company applications lists</field>
+      <field name="model">seek.application</field>
+      <field name="arch" type="xml">
+        <tree>
+           <field name="seeker_id" string="Seeker"/>
+           <field name="job_id" string="Job"/>
+          <field name="application_date" string="Application Date"/>
+        </tree>
+      </field>
+    </record>
+
+
 
 
   </data>
 </odoo>
+

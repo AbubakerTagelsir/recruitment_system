@@ -1,1 +1,37 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+seek_demo_seeker, Model_Seeker_acces,model_seek_application,group_seeker,1,1,1,0
+seek_demo_company, Model_Company_acces,model_seek_application,group_company,1,0,0,1
+seek_demo_admin, Model_Admin_acces,model_seek_application,group_admin,1,0,1,1
+
+
+access_seek_sjob,access_seek_sjob,model_seek_job,group_seeker,1,0,0,0
+access_seek_cjob, access_seek_cjob,model_seek_job,group_company,1,1,1,1
+access_seek_ajob, access_seek_ajob,model_seek_job,group_admin,1,0,0,1
+
+
+access_seek_spartner,access_seek_spartner,model_res_partner,group_seeker,1,1,0,1
+access_seek_cpartner, access_seek_cpartner,model_res_partner,group_company,1,0,0,0
+access_seek_apartner, access_seek_apartner,model_res_partner,group_admin,1,0,0,1
+
+
+access_seek_scompany, access_seek_scompany,model_res_company,group_seeker,1,0,0,0
+access_seek_ccompany, access_seek_ccompany,model_res_company,group_company,1,1,0,0
+access_seek_acompany, access_seek_acompany,model_res_company,group_admin,1,0,1,1
+
+access_seek_seducation, access_seek_seducation,model_seek_education,group_seeker,1,1,0,0
+access_seek_ceducation, access_seek_ceducation,model_seek_education,group_company,1,1,0,0
+access_seek_aeducation, access_seek_aeducation,model_seek_education,group_admin,1,1,1,1
+
+access_seek_sskill, access_seek_sskill,model_seek_skill,group_seeker,1,1,0,0
+access_seek_cskill, access_seek_cskill,model_seek_skill,group_company,1,1,0,0
+access_seek_askill, access_seek_askill,model_seek_skill,group_admin,1,1,1,1
+
+access_seek_sexperience, access_seek_sexperience,model_seek_experience,group_seeker,1,1,0,0
+access_seek_cexperience, access_seek_cexperience,model_seek_experience,group_company,1,1,0,0
+access_seek_aexperience, access_seek_aexperience,model_seek_experience,group_admin,1,1,1,1
+
+access_seek_sspecialization, access_seek_sspecialization,model_seek_specialization,group_seeker,1,1,0,0
+access_seek_cspecialization, access_seek_cspecialization,model_seek_specialization,group_company,1,1,0,0
+access_seek_aspecialization, access_seek_aspecialization,model_seek_specialization,group_admin,1,1,1,1
+
